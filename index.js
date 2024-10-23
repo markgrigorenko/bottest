@@ -3,13 +3,14 @@ const {gameOptions, againOptions} = require('./options')
 const sequelize = require('./db')
 const UserModel = require('./models')
 
-const token = '7629542031:AAHJKV-QfVoOW5sa1GzBHCL7kV5oiRAzwkE';
+const token = '7629542031:AAER7zMEosEGtyKUL2mQPdkY4l5lvYIWQmM';
 
 const bot = new TelegramApi(token, {polling: true});
 
 const chats = {}
 
 const startGame = async (chatId) => {
+
     await bot.sendMessage(chatId, `Сейчас я загадаю цифру, а ты должен отгадать`)
     const randomNumber = Math.floor(Math.random() * 10)
     chats[chatId] = randomNumber;
@@ -19,10 +20,12 @@ const startGame = async (chatId) => {
 const start = async () => {
 
     try {
-     /*   await UserModel.destroy({
+    /*    await UserModel.destroy({
             where: {}, // Пустое условие удалит все записи
             truncate: true // Если вы хотите использовать "truncate" для более быстрой очистки
         });*/
+       /* await sequelize.sync({ force: true }); // Это приведет к удалению всех таблиц и их пересозданию
+*/
         await sequelize.authenticate()
         await sequelize.sync()
     } catch (e) {
