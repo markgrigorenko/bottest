@@ -78,14 +78,12 @@ const start = async () => {
         }
 
         const user = await UserModel.findOne({chatId})
-
         if (data == chats[chatId]) {
-            user.right += 1
-             await bot.sendMessage(chatId, 'Угадал!', againOptions)
+            user.right += 1;
+            await bot.sendMessage(chatId, `Поздравляю, ты отгадал цифру ${chats[chatId]}`, againOptions);
         } else {
-            user.wrong += 1
-
-             await bot.sendMessage(chatId, `Бот загадывал  ${chats[chatId]}. Не угадал:(`, againOptions)
+            user.wrong += 1;
+            await bot.sendMessage(chatId, `К сожалению ты не угадал, бот загадал цифру ${chats[chatId]}`, againOptions);
         }
 
         await user.save()
